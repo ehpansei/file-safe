@@ -1,0 +1,26 @@
+<div>
+  <h2 mat-dialog-title>
+    <ng-content select=".modal-title"></ng-content>
+  </h2>
+
+  <mat-dialog-content>
+    <ng-content select=".modal-content"></ng-content>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button
+      mat-button
+      mat-flat-button
+      color="primary"
+      mat-dialog-close
+      (click)="onClickAction()">
+      <ng-content select=".modal-action"></ng-content>
+    </button>
+    <button
+      mat-button
+      mat-flat-button
+      mat-dialog-close>
+      Cancel
+    </button>
+  </mat-dialog-actions>
+</div>

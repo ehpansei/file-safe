@@ -1,0 +1,42 @@
+<form
+  [formGroup]="formGroup"
+  class="container d-flex flex-column justify-content-center u-fullHeight"
+  (ngSubmit)="onSubmit()">
+  <mat-form-field
+    appearance="fill">
+    <mat-label>Username</mat-label>
+    <input
+      id="usernameField"
+      matInput
+      placeholder="Username"
+      type="username"
+      formControlName="username" />
+    <mat-error
+      id="usernameError"
+      *ngIf="usernameControl.errors?.['required']">
+      Username is required
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field
+    class="mt-2"
+    appearance="fill">
+    <mat-label>Password</mat-label>
+    <input
+      id="passwordField"
+      matInput
+      type="password"
+      placeholder="Password"
+      formControlName="password" />
+    <mat-error
+      id="passwordError"
+      *ngIf="passwordControl.errors?.['required']">Password is required</mat-error>
+  </mat-form-field>
+  <button
+    class="mt-4"
+    mat-flat-button
+    color="primary"
+    type="submit"
+    [disabled]="isLoading || formGroup.invalid">
+    Submit
+  </button>
+</form>
