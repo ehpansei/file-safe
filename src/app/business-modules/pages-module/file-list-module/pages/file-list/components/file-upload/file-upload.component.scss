@@ -1,0 +1,16 @@
+.c-fileUpload {
+  &__dragDropArea {
+    width: 100%;
+    height: 200px;
+    cursor: pointer;
+    transition: all 0.4s;
+
+    &--dragging {
+      background-color: aqua;
+    }
+
+    &:hover {
+      background-color: aqua;
+    }
+  }
+}

@@ -2,19 +2,38 @@
   <span class="modal-title">Upload file</span>
 
   <div class="modal-content">
-    <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload hidden>
+    <input
+      type="file"
+      class="file-input"
+      (change)="onFileSelected($event)"
+      #fileUpload
+      hidden
+    />
 
-    <div class="file-upload">
+    <div
+      class="c-fileUpload__dragDropArea d-flex align-items-center justify-content-center flex-column"
+      [ngClass]="{'c-fileUpload__dragDropArea--dragging': isDragging}"
+      (click)="fileUpload.click()"
+      (dragleave)="onDragLeave($event)"
+      (dragover)="onDragOver($event)"
+      (drop)="onDrop($event)"
 
-      {{fileName || "No file uploaded yet."}}
-
-      <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
-        <mat-icon>attach_file</mat-icon>
-      </button>
+    >
+      <mat-icon>attach_file</mat-icon>
+      <p>{{ fileName || 'No file selected yet.' }}</p>
     </div>
   </div>
 
   <div class="modal-action">
-    Upload
+    <button
+      mat-button
+      mat-flat-button
+      color="primary"
+      mat-dialog-close
+      [disabled]="!selectedFile"
+      (click)="onClickUpload()"
+    >
+      Upload
+    </button>
   </div>
 </modal>

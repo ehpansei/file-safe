@@ -1,19 +1,19 @@
 <form
   [formGroup]="formGroup"
-  class="container d-flex flex-column justify-content-center u-fullHeight"
+  class="container d-flex flex-column justify-content-center"
   (ngSubmit)="onSubmit()">
   <mat-form-field
     appearance="fill">
     <mat-label>Username</mat-label>
     <input
-      id="usernameField"
+      id="emailField"
       matInput
-      placeholder="Username"
-      type="username"
-      formControlName="username" />
+      placeholder="Email"
+      type="text"
+      formControlName="email" />
     <mat-error
-      id="usernameError"
-      *ngIf="usernameControl.errors?.['required']">
+      id="emailError"
+      *ngIf="emailControl.errors?.['required']">
       Username is required
     </mat-error>
   </mat-form-field>
@@ -31,12 +31,14 @@
       id="passwordError"
       *ngIf="passwordControl.errors?.['required']">Password is required</mat-error>
   </mat-form-field>
-  <button
-    class="mt-4"
-    mat-flat-button
-    color="primary"
-    type="submit"
-    [disabled]="isLoading || formGroup.invalid">
-    Submit
-  </button>
+  <div class="row d-flex justify-content-center">
+    <button
+      class="mt-4 col-3"
+      mat-flat-button
+      color="primary"
+      type="submit"
+      [disabled]="isLoading || formGroup.invalid">
+      Submit
+    </button>
+  </div>
 </form>

@@ -11,8 +11,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     CommonModule,
     PagesRoutingModule,
     PagesRoutingModule,
-    MatSidenavModule,
-
+    MatSidenavModule
   ]
 })
 export class PagesModule {}

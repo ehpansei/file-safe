@@ -2,15 +2,15 @@ import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { AuthenticationService } from '@authentication-module/services/authentication.service';
+import { AuthenticationService } from '@infrastructure-module/services/authentication/authentication.service';
 
 import { LoginFormComponent } from './login-form.component';
 
 describe('LoginFormComponent', () => {
   let component: LoginFormComponent;
   let fixture: ComponentFixture<LoginFormComponent>;
-  let usernameField: DebugElement;
-  let usernameError: DebugElement;
+  let emailField: DebugElement;
+  let emailError: DebugElement;
   let passwordField: DebugElement;
   let passwordError: DebugElement;
   let submitButton: DebugElement;
@@ -48,7 +48,7 @@ describe('LoginFormComponent', () => {
     component.ngOnInit();
     fixture.detectChanges();
 
-    usernameField = fixture.debugElement.query(By.css('#usernameField'));
+    emailField = fixture.debugElement.query(By.css('#emailField'));
     passwordField = fixture.debugElement.query(By.css('#passwordField'));
     submitButton = fixture.debugElement.query(By.css('button'));
     form = fixture.debugElement.query(By.css('form'));
@@ -59,7 +59,7 @@ describe('LoginFormComponent', () => {
   });
 
   it('should render username and password input fields and submit button', () => {
-    expect(usernameField).toBeTruthy();
+    expect(emailField).toBeTruthy();
 
     expect(passwordField).toBeTruthy();
 
@@ -74,9 +74,9 @@ describe('LoginFormComponent', () => {
     submit(form);
 
     fixture.detectChanges();
-    usernameError = fixture.debugElement.query(By.css('#usernameError'));
+    emailError = fixture.debugElement.query(By.css('#usernameError'));
 
-    expect(usernameError).toBeTruthy();
+    expect(emailError).toBeTruthy();
   });
 
   it('should render password error when password field is empty', () => {

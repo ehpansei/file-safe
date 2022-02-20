@@ -1,3 +1,10 @@
+.p-fileListPage {
+  &__toolbar {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
 mat-grid-tile {
   background: lightblue;
 }

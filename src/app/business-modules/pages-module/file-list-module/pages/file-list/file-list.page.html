@@ -1,11 +1,35 @@
-<button mat-flat-button color="primary" (click)="onClickUploadFile()">
-  Upload file
-</button>
+<!-- TOOLBAR -->
+<div class="d-flex justify-content-between">
+  <button mat-flat-button color="primary" (click)="onClickUploadFile()">
+    Upload file
+  </button>
 
-<mat-grid-list cols="2" rowHeight="2:1">
-  <span *ngFor="let file of fileList$ | async; let index=index">
-    <mat-grid-tile>
-      <file-list-item [name]="file.name" (delete)="onDeleteFile(index)"></file-list-item>
-    </mat-grid-tile>
+  <form [formGroup]="searchFormGroup">
+    <input
+      id="searchTerm"
+      matInput
+      placeholder="Search"
+      type="text"
+      formControlName="term"
+    />
+  </form>
+</div>
+
+<!-- LIST -->
+<div class="mt-5">
+  <span *ngIf="fileList$ | async; let list;">
+    <div *ngIf="!list.list" class="h-100 w-100 d-flex align-items-center justify-content-center">
+      <mat-spinner></mat-spinner>
+    </div>
+    <mat-grid-list *ngIf="list.list" cols="2" rowHeight="2:1">
+      <span *ngFor="let file of list.list; let index=index">
+        <mat-grid-tile>
+          <file-list-item
+            [file]="file"
+            (delete)="onDeleteFile(index)"
+          ></file-list-item>
+        </mat-grid-tile>
+      </span>
+    </mat-grid-list>
   </span>
-</mat-grid-list>
+</div>

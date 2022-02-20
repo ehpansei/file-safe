@@ -8,14 +8,24 @@ import { InfrastructureModule } from '@infrastructure-module/infrastructure.modu
 import { FileUploadComponent } from './pages/file-list/components/file-upload/file-upload.component';
 import { MatIconModule } from '@angular/material/icon';
 import { FileListItemComponent } from './pages/file-list/components/file-list-item/file-list-item.component';
+import { FileDetailPage } from './pages/file-detail/file-detail.page';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
-  declarations: [FileListPage, FileUploadComponent, FileListItemComponent],
+  declarations: [
+    FileListPage,
+    FileDetailPage,
+    FileUploadComponent,
+    FileListItemComponent
+  ],
   imports: [
     InfrastructureModule,
     FileListRoutingModule,
     MatGridListModule,
-    MatIconModule
+    MatIconModule,
+    ReactiveFormsModule,
+    MatInputModule
   ],
   providers: [FileService]
 })

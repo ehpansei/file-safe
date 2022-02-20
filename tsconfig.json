@@ -5,9 +5,12 @@
     "baseUrl": "./",
     "paths": {
       "@app/*": ["src/app/*"],
-      "@infrastructure-module/*": ["src/app/infrastructure-module/*"],
       "@authentication-module/*": [
         "src/app/business-modules/authentication-module/*"
+      ],
+      "@pages-module/*": ["src/app/business-modules/pages-module/*"],
+      "@infrastructure-module/*": [
+        "src/app/shared-modules/infrastructure-module/*"
       ],
       "@file-list-module/*": [
         "src/app/business-modules/pages-module/file-list-module/*"
@@ -26,9 +29,10 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es2017",
+    "target": "es2015",
     "module": "es2020",
-    "lib": ["es2020", "dom"],
+    "types": ["node", "jasmine"],
+    "lib": ["es2018", "dom"],
     "allowSyntheticDefaultImports": true
   },
   "angularCompilerOptions": {

@@ -1,0 +1,8 @@
+<div *ngIf="file$ | withLoading | async; let file;">
+  <mat-spinner *ngIf="file.loading" class="justify-content-md-center">
+  </mat-spinner>
+  <div *ngIf="!file.loading" class="d-flex flex-column">
+    <h2 class="d-flex justify-content-center">{{file.name}}</h2>
+    <p>Uploaded at: {{file.created_at | date}}</p>
+  </div>
+</div>

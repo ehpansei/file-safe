@@ -1,12 +1,7 @@
-<div
-  #delete
-  class="c-fileListItem__deleteButton"
-  (click)="onClickDelete()">
-  <mat-icon
-    aria-hidden="false"
-    aria-label="Delete file">
-    delete
-  </mat-icon>
+<div class="u-inheritSize position-absolute" [routerLink]="[file.id]"></div>
+
+<div #delete class="c-fileListItem__deleteButton" (click)="onClickDelete($event)">
+  <mat-icon aria-hidden="false" aria-label="Delete file"> delete </mat-icon>
 </div>
 
-<p id="file-name">{{ name }}</p>
+<p id="file-name">{{ file.name }}</p>

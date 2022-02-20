@@ -5,7 +5,7 @@
     {
       "files": ["*.ts"],
       "parserOptions": {
-        "project": ["tsconfig.json"],
+        "project": ["tsconfig.json", "e2e/tsconfig.json"],
         "createDefaultProgram": true
       },
       "extends": [
@@ -13,25 +13,31 @@
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
       "rules": {
-        "@angular-eslint/directive-selector": [
-          "error",
-          {
-            "type": "attribute",
-            "style": "camelCase"
-          }
-        ],
+        "init-declarations": ["error", "never", { "ignoreForLoopInit": true }],
+        "quotes": ["error", "single", { "allowTemplateLiterals": true }],
         "@angular-eslint/component-selector": [
           "error",
           {
-            "type": "element",
-            "style": "kebab-case"
+            "style": "kebab-case",
+            "type": "element"
           }
         ],
-        "@angular-eslint/component-class-sufix": [
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "style": "camelCase",
+            "type": "attribute"
+          }
+        ],
+        "@angular-eslint/component-class-suffix": [
           "warn",
           {
             "suffixes": ["Component", "Page"]
           }
+        ],
+        "@angular-eslint/no-host-metadata-property": [
+          "error",
+          { "allowStatic": true }
         ]
       }
     },
@@ -39,9 +45,6 @@
       "files": ["*.html"],
       "extends": ["plugin:@angular-eslint/template/recommended"],
       "rules": {}
-    },
-    {
-      "plugins": ["@angular-eslint"]
     }
   ]
 }

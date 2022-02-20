@@ -8,6 +8,7 @@ import {
   Output,
   ViewChild
 } from '@angular/core';
+import { File as FileModel } from '@file-list-module/models/file.model';
 import { fromEvent, Subscription } from 'rxjs';
 
 @Component({
@@ -17,10 +18,10 @@ import { fromEvent, Subscription } from 'rxjs';
   host: { class: 'c-fileListItem' }
 })
 export class FileListItemComponent implements OnInit, OnDestroy {
-  @Input() name!: string;
+  @Input() file!: FileModel;
   @Output() delete = new EventEmitter();
 
-  @ViewChild('delete') deleteButton: ElementRef;
+  @ViewChild('delete') deleteButton!: ElementRef;
 
   private subscriptions = new Subscription();
 
@@ -34,7 +35,8 @@ export class FileListItemComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  public onClickDelete(): void {
+  public onClickDelete(event: any): void {
+    event.stopPropagation();
     this.delete.emit();
   }
 
