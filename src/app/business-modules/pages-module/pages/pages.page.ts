@@ -1,11 +1,10 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { TimerService } from '@infrastructure-module/services/timer/timer.service';
 import { AuthenticationService } from '@infrastructure-module/services/authentication/authentication.service';
-import { debounceTime, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { TimerStatus } from '@infrastructure-module/enums/timer-status.enum';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { AppConfig } from 'src/configs/app.config';
-import { SearchService } from '@infrastructure-module/services/search/search.service';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: './pages.page.html',
@@ -20,48 +19,26 @@ export class PagesPage implements OnInit, OnDestroy {
     this.resetLogoutTimer();
   }
 
-  public searchFormGroup: FormGroup;
-
   private timer: NodeJS.Timeout;
   private subscriptions = new Subscription();
 
   constructor(
     private authenticationService: AuthenticationService,
     private timerService: TimerService,
-    private fb: FormBuilder,
-    private searchService: SearchService
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    this.router.navigate(['files']);
     this.setLogoutTimer();
-    this.initSearch();
   }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
 
-  public onClickUploadFile(): void {}
-
-  private initSearch(): void {
-    this.initSearchForm();
-    this.initSearchFormChangeSubscription();
-  }
-
-  private initSearchForm(): void {
-    this.searchFormGroup = this.fb.group({
-      term: this.fb.control(null)
-    });
-  }
-
-  private initSearchFormChangeSubscription(): void {
-    this.subscriptions.add(
-      this.searchFormGroup.controls.term.valueChanges
-        .pipe(debounceTime(AppConfig.config.searchDebounceTime))
-        .subscribe((term: string) => {
-          this.searchService.emit(term);
-        })
-    );
+  public onClickLogout(): void {
+    this.authenticationService.logout().subscribe();
   }
 
   private setLogoutTimer(): void {

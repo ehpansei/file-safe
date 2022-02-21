@@ -1,6 +1,5 @@
-import { BaseModel } from '@infrastructure-module/models/base.model';
-
-export class File extends BaseModel {
+export class File {
+  public id: number;
   public name: string;
   public lastModifiedDate: Date;
   public preview: string;
@@ -9,8 +8,7 @@ export class File extends BaseModel {
   public size?: number;
 
   constructor(data: File) {
-    super(data.id);
-
+    this.id = data.id;
     this.name = data.name;
     this.lastModifiedDate = data.lastModifiedDate;
     this.preview = data.preview;

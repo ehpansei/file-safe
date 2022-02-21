@@ -5,9 +5,9 @@ import { PagesRoutingModule } from './pages-routing.module';
 
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { PagesPage } from './pages/pages.page';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [PagesPage],
@@ -17,7 +17,7 @@ import { PagesPage } from './pages/pages.page';
     PagesRoutingModule,
     MatSidenavModule,
     MatButtonModule,
-    MatInputModule
+    MatIconModule
   ]
 })
 export class PagesModule {}

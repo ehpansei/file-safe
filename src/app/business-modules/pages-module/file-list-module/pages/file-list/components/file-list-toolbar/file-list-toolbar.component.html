@@ -1,0 +1,24 @@
+<button
+  mat-flat-button
+  color="primary"
+  class="mr-4"
+  (click)="onClickUploadFile()"
+>
+  Upload file
+</button>
+
+<form class="mr-4" [formGroup]="searchFormGroup">
+  <mat-form-field>
+    <mat-label>Search</mat-label>
+    <input
+      id="searchTerm"
+      matInput
+      placeholder="Search"
+      type="text"
+      formControlName="term"
+    />
+  </mat-form-field>
+</form>
+<!-- <button mat-flat-button color="primary" class="mr-2" (click)="onClickLogout()">
+  Logout
+</button> -->

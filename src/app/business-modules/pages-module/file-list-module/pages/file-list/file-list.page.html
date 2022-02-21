@@ -1,22 +1,11 @@
-<!-- TOOLBAR -->
-<!-- <div class="d-flex justify-content-between">
-  <button mat-flat-button color="primary" (click)="onClickUploadFile()">
-    Upload file
-  </button>
-
-  <form [formGroup]="searchFormGroup">
-    <input
-      id="searchTerm"
-      matInput
-      placeholder="Search"
-      type="text"
-      formControlName="term"
-    />
-  </form>
-</div> -->
+<file-list-toolbar
+  (searchTerm)="onSearchTerm($event)"
+  (refreshList)="onRefreshList()"
+  (isUploading)="onIsUploading($event)"
+></file-list-toolbar>
 
 <mat-progress-bar
-  *ngIf="filesUploading"
+  *ngIf="uploading$ | async"
   class="mt-5"
   mode="indeterminate"
 ></mat-progress-bar>
@@ -30,15 +19,18 @@
     >
       <mat-spinner></mat-spinner>
     </div>
-    <mat-grid-list *ngIf="list.list" cols="2" rowHeight="2:1">
-      <span *ngFor="let file of list.list; let index=index">
-        <mat-grid-tile>
-          <file-list-item
-            [file]="file"
-            (delete)="onDeleteFile(index)"
-          ></file-list-item>
-        </mat-grid-tile>
-      </span>
-    </mat-grid-list>
+    <span *ngIf="list.list">
+      <mat-grid-list *ngIf="list.list.length" cols="2" rowHeight="2:1">
+        <span *ngFor="let file of list.list; let index=index">
+          <mat-grid-tile>
+            <file-list-item
+              [file]="file"
+              (delete)="onDeleteFile(file)"
+            ></file-list-item>
+          </mat-grid-tile>
+        </span>
+      </mat-grid-list>
+      <p *ngIf="!list.list.length">No files!</p>
+    </span>
   </span>
 </div>

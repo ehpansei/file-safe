@@ -1,5 +1,13 @@
 <mat-drawer-container class="h-100" autosize>
   <mat-drawer #drawer mode="side" class="u-width20">
+    <button
+      mat-flat-button
+      color="primary"
+      class="mr-2"
+      (click)="onClickLogout()"
+    >
+      Logout
+    </button>
     <div class="p-pages__linksContainer">
       <a [routerLink]="'./files'" routerLinkActive="active-link">Files</a>
       <a [routerLink]="'./some-other-module'" routerLinkActive="active-link"
@@ -9,36 +17,9 @@
   </mat-drawer>
 
   <mat-drawer-content class="p-4">
-    <!-- TOOLBAR -->
-    <div class="d-flex justify-content-between">
-      <button type="button" mat-button (click)="drawer.toggle()">
-        Toggle sidenav
-      </button>
-
-      <span class="d-flex align-items-center">
-        <button
-          mat-flat-button
-          color="primary"
-          class="mr-2"
-          (click)="onClickUploadFile()"
-        >
-          Upload file
-        </button>
-
-        <form [formGroup]="searchFormGroup">
-          <mat-form-field>
-            <mat-label>Search</mat-label>
-            <input
-              id="searchTerm"
-              matInput
-              placeholder="Search"
-              type="text"
-              formControlName="term"
-            />
-          </mat-form-field>
-        </form>
-      </span>
-    </div>
+    <button type="button" mat-button (click)="drawer.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
 
     <div class="container">
       <router-outlet></router-outlet>

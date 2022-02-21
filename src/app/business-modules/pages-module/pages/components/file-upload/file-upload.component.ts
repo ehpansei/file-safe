@@ -29,7 +29,6 @@ export class FileUploadComponent {
     event.stopPropagation();
     event.preventDefault();
     this.isDragging = true;
-    console.log('dragging over');
     return;
   }
 

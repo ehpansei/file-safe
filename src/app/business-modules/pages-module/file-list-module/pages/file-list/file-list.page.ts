@@ -1,21 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import {
-  finalize,
-  interval,
-  Observable,
-  Subject,
-  Subscription,
-  takeUntil
-} from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { FileService } from '@file-list-module/services/file.service';
-import { FileUploadComponent } from './components/file-upload/file-upload.component';
 import { FileList } from '@file-list-module/models/file-list.model';
 import { SnackbarService } from '@infrastructure-module/services/snackbar/snackbar.service';
-import { AuthenticationService } from '@infrastructure-module/services/authentication/authentication.service';
-import { AppConfig } from 'src/configs/app.config';
 import { File as FileModel } from '@file-list-module//models/file.model';
-import { SearchService } from '@infrastructure-module/services/search/search.service';
 
 @Component({
   templateUrl: './file-list.page.html',
@@ -23,43 +12,27 @@ import { SearchService } from '@infrastructure-module/services/search/search.ser
 })
 export class FileListPage implements OnInit, OnDestroy {
   public fileList$: Observable<FileList>;
-  // public searchFormGroup: FormGroup;
-  public filesUploading = false;
+  public uploading$ = new BehaviorSubject<boolean>(false);
 
   private subscriptions = new Subscription();
+  private searchTerms: { term: string } = { term: '' };
 
   constructor(
     public dialog: MatDialog,
     private fileService: FileService,
-    private snackbarService: SnackbarService,
-    private authenticationService: AuthenticationService,
-    private searchService: SearchService
+    private snackbarService: SnackbarService
   ) {}
 
   ngOnInit(): void {
     this.setData();
-    this.subscribeToSearchChanges();
   }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
 
-  public onClickUploadFile(): void {
-    const dialogRef = this.dialog.open(FileUploadComponent, {
-      width: '300px'
-    });
-
-    dialogRef.componentInstance.fileUploaded.subscribe((file: File) => {
-      if (file) {
-        this.uploadFile(file, dialogRef);
-      }
-    });
-  }
-
-  public onDeleteFile(index: number): void {
-    this.fileService.delete(index).subscribe((resp: FileModel) => {
-      console.log(resp);
+  public onDeleteFile(file: FileModel): void {
+    this.fileService.delete(file.id).subscribe((resp: FileModel) => {
       this.snackbarService.success(`File has been deleted`);
       this.setData();
     });
@@ -67,55 +40,20 @@ export class FileListPage implements OnInit, OnDestroy {
     // this.fileService.delete(index);
   }
 
-  private subscribeToSearchChanges(): void {
-    this.subscriptions.add(
-      this.searchService.getTerm().subscribe((term: string) => {
-        this.fileList$ = this.fileService.list({ term });
-      })
-    );
+  public onSearchTerm(term: string): void {
+    this.searchTerms.term = term;
+    this.setData();
   }
 
-  private uploadFile(
-    file: File,
-    dialogRef: MatDialogRef<FileUploadComponent>
-  ): void {
-    const destroy$ = new Subject();
-    this.filesUploading = true;
-    // start an interval that renews token every X seconds while file is uploading
-    interval(AppConfig.config.renewTokenInterval)
-      .pipe(takeUntil(destroy$))
-      .subscribe(() => {
-        // make renew token request
-        this.authenticationService.renew().subscribe();
-      });
+  public onRefreshList(): void {
+    this.setData();
+  }
 
-    // upload request
-    setTimeout(() => {
-      this.fileService
-        .create(file)
-        .pipe(
-          finalize(() => {
-            destroy$.next(true);
-            dialogRef.close();
-            dialogRef.componentInstance.isUploading = false;
-            this.filesUploading = false;
-          })
-        )
-        .subscribe({
-          next: (resp: any) => {
-            // show success toast
-            this.snackbarService.success('File successfully uploaded');
-            this.setData();
-          },
-          error: (err) => {
-            // show failure toast
-            this.snackbarService.failure('File successfully uploaded');
-          }
-        });
-    }, AppConfig.config.uploadDelayTimeout);
+  public onIsUploading(isUploading: boolean): void {
+    this.uploading$.next(isUploading);
   }
 
   private setData(): void {
-    this.fileList$ = this.fileService.list();
+    this.fileList$ = this.fileService.list(this.searchTerms);
   }
 }

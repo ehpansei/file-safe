@@ -1,13 +1,13 @@
-@use "@angular/material" as mat;
+@use '@angular/material' as mat;
 
 // defines font-family for angular material components
-$base-font-family: 400, 500, "effra", sans-serif;
+$base-font-family: 400, 500, 'effra', sans-serif;
 $my-custom-typography: mat.define-typography-config(
-  $font-family: $base-font-family,
+  $font-family: $base-font-family
 );
 @include mat.core($my-custom-typography);
 
-@import "imports";
+@import 'imports';
 
 /* You can add global styles to this file, and also import other style files */
 
