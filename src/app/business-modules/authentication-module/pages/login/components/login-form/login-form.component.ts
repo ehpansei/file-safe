@@ -6,6 +6,7 @@ import {
   Validators
 } from '@angular/forms';
 import { AuthenticationService } from '@infrastructure-module/services/authentication/authentication.service';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'login-form',
@@ -31,12 +32,15 @@ export class LoginFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.initFormGroup();
-
     this.isLoading = false;
   }
 
   public onSubmit(): void {
-    this.authenticationService.login(this.formGroup.value).subscribe();
+    this.isLoading = true;
+    this.authenticationService
+      .login(this.formGroup.value)
+      .pipe(finalize(() => (this.isLoading = false)))
+      .subscribe();
   }
 
   private initFormGroup(): void {

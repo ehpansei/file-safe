@@ -29,6 +29,7 @@ export class PagesPage implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    // files is the homepage
     this.router.navigate(['files']);
     this.setLogoutTimer();
   }
@@ -41,6 +42,10 @@ export class PagesPage implements OnInit, OnDestroy {
     this.authenticationService.logout().subscribe();
   }
 
+  /**
+   * Creates a new timer and listens to events comming from
+   * file upload
+   */
   private setLogoutTimer(): void {
     this.timer = setTimeout(() => {
       this.authenticationService.logout().subscribe();

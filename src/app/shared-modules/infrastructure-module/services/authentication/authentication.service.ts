@@ -4,14 +4,19 @@ import { Router } from '@angular/router';
 import { TokenHelper } from '@infrastructure-module/helpers/token.helper';
 import { LoginCredentials } from '@infrastructure-module/models/login-credentials.model';
 import { LoginResponse } from '@infrastructure-module/models/login-response.model';
-import { catchError, Observable, of, switchMap } from 'rxjs';
+import { catchError, Observable, of, switchMap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { SnackbarService } from '../snackbar/snackbar.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  constructor(private router: Router, private httpClient: HttpClient) {}
+  constructor(
+    private router: Router,
+    private httpClient: HttpClient,
+    private snackbarService: SnackbarService
+  ) {}
   private endpoint = environment.api.base;
 
   public login(credentials: LoginCredentials): Observable<boolean> {
@@ -20,10 +25,14 @@ export class AuthenticationService {
       .pipe(
         switchMap((resp: LoginResponse) => {
           TokenHelper.setToken(resp.token.plainTextToken);
+          this.snackbarService.success('Welcome to File safe');
           this.router.navigate(['files']);
           return of(true);
         }),
-        catchError((err: any) => of(false))
+        catchError((err: any) => {
+          this.snackbarService.failure('Something went wrong');
+          return of(false);
+        })
       );
   }
 
