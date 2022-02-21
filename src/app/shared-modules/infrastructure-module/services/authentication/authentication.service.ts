@@ -6,7 +6,7 @@ import { LoginCredentials } from '@infrastructure-module/models/login-credential
 import { LoginResponse } from '@infrastructure-module/models/login-response.model';
 import { catchError, Observable, of, switchMap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { SnackbarService } from '../snackbar/snackbar.service';
+import { SnackbarService } from '@infrastructure-module/services/snackbar/snackbar.service';
 
 @Injectable({
   providedIn: 'root'

@@ -1,19 +1,16 @@
 <mat-drawer-container class="h-100" autosize>
-  <mat-drawer #drawer mode="side" class="u-width20">
-    <button
-      mat-flat-button
-      color="primary"
-      class="mr-2"
-      (click)="onClickLogout()"
-    >
-      Logout
-    </button>
-    <div class="p-pages__linksContainer">
-      <a [routerLink]="'./files'" routerLinkActive="active-link">Files</a>
-      <a [routerLink]="'./some-other-module'" routerLinkActive="active-link"
-        >Some other module</a
+  <mat-drawer #drawer mode="side" class="u-width20 p-2">
+    <div class="d-flex w-100 justify-content-center mb-5">
+      <button
+        mat-flat-button
+        color="primary"
+        class="mr-2"
+        (click)="onClickLogout()"
       >
+        Logout
+      </button>
     </div>
+    <side-nav-links></side-nav-links>
   </mat-drawer>
 
   <mat-drawer-content class="p-4">

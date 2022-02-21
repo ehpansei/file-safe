@@ -8,9 +8,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { PagesPage } from './pages/pages.page';
 import { MatIconModule } from '@angular/material/icon';
+import { SideNavLinksComponent } from './pages/components/side-nav-links/side-nav-links.component';
 
 @NgModule({
-  declarations: [PagesPage],
+  declarations: [PagesPage, SideNavLinksComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

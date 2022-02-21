@@ -1,5 +1,5 @@
-.p-pages {
-  &__linksContainer {
+.c-sideNavLinks {
+  &:host {
     display: flex;
     flex-direction: column;
     align-items: center;
