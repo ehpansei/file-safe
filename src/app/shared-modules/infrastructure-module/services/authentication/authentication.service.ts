@@ -20,7 +20,7 @@ export class AuthenticationService {
       .pipe(
         switchMap((resp: LoginResponse) => {
           TokenHelper.setToken(resp.token.plainTextToken);
-          this.router.navigate(['files']);
+          this.router.navigate(['']);
           return of(true);
         }),
         catchError((err: any) => of(false))
@@ -32,6 +32,19 @@ export class AuthenticationService {
       switchMap((resp: boolean) => {
         TokenHelper.removeToken();
         this.router.navigate(['authentication']);
+        return of(true);
+      }),
+      catchError((err: any) => {
+        this.router.navigate(['authentication']);
+        return of(false);
+      })
+    );
+  }
+
+  public renew(): Observable<boolean> {
+    return this.httpClient.get<LoginResponse>(this.endpoint + 'renew').pipe(
+      switchMap((resp: LoginResponse) => {
+        TokenHelper.setToken(resp.token.plainTextToken);
         return of(true);
       }),
       catchError((err: any) => of(false))

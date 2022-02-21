@@ -66,4 +66,8 @@ export class FileService {
   public get(id: number): Observable<FileModel> {
     return this.httpClient.get<any>(this.endpoint + '/' + id);
   }
+
+  public delete(id: number): Observable<FileModel> {
+    return this.httpClient.delete<FileModel>(this.endpoint + '/' + id);
+  }
 }

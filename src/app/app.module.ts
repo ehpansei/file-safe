@@ -7,7 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { JwtInterceptor } from './shared-modules/infrastructure-module/interceptors/jwt.interceptor';
+import { JwtInterceptor } from '@infrastructure-module/interceptors/jwt.interceptor';
+import { ErrorInterceptor } from '@infrastructure-module/interceptors/error.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,7 +22,8 @@ import { JwtInterceptor } from './shared-modules/infrastructure-module/intercept
   ],
   bootstrap: [AppComponent],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ]
 })
 export class AppModule {}

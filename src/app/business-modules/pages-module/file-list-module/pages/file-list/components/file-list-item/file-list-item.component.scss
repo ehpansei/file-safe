@@ -1,3 +1,5 @@
+@import "variables";
+
 .c-fileListItem {
   &:host {
     width: 100%;
@@ -5,7 +7,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.5s;
+    transition: all $transition-time;
     cursor: pointer;
 
     &:hover {
@@ -18,7 +20,7 @@
     top: 20px;
     right: 20px;
     opacity: 0;
-    transition: opacity 0.5s;
+    transition: opacity $transition-time;
 
     &--hover {
       opacity: 1;

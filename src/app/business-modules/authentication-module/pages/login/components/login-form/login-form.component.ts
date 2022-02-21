@@ -36,7 +36,6 @@ export class LoginFormComponent implements OnInit {
   }
 
   public onSubmit(): void {
-    console.log(this.formGroup.value);
     this.authenticationService.login(this.formGroup.value).subscribe();
   }
 

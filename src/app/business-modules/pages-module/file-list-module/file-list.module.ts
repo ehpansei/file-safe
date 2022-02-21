@@ -11,6 +11,7 @@ import { FileListItemComponent } from './pages/file-list/components/file-list-it
 import { FileDetailPage } from './pages/file-detail/file-detail.page';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -24,8 +25,7 @@ import { MatInputModule } from '@angular/material/input';
     FileListRoutingModule,
     MatGridListModule,
     MatIconModule,
-    ReactiveFormsModule,
-    MatInputModule
+    MatProgressBarModule
   ],
   providers: [FileService]
 })

@@ -1,8 +1,10 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { TimerService } from '@infrastructure-module/services/timer/timer.service';
 import { AuthenticationService } from '@infrastructure-module/services/authentication/authentication.service';
-import { Subscription } from 'rxjs';
+import { debounceTime, Subscription } from 'rxjs';
 import { TimerStatus } from '@infrastructure-module/enums/timer-status.enum';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { AppConfig } from 'src/configs/app.config';
 
 @Component({
   templateUrl: './pages.page.html',
@@ -17,6 +19,8 @@ export class PagesPage implements OnInit {
     this.resetLogoutTimer();
   }
 
+  public searchFormGroup: FormGroup;
+
   // 5 minutes
   private TIMEOUT = 300000;
   private timer: NodeJS.Timeout;
@@ -24,11 +28,44 @@ export class PagesPage implements OnInit {
 
   constructor(
     private authenticationService: AuthenticationService,
-    private timerService: TimerService
+    private timerService: TimerService,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
     this.setLogoutTimer();
+    this.initSearch();
+  }
+
+  public onClickUploadFile(): void {}
+
+  private initSearch(): void {
+    this.initSearchForm();
+    this.initSearchFormChangeSubscription();
+  }
+
+  private initSearchForm(): void {
+    this.searchFormGroup = this.fb.group({
+      term: this.fb.control(null)
+    });
+  }
+
+  private initSearchFormChangeSubscription(): void {
+    this.subscriptions.add(
+      this.searchFormGroup.controls.term.valueChanges
+        .pipe(debounceTime(AppConfig.config.searchDebounceTime))
+        .subscribe((term: string) => {
+          console.log(term);
+          // this.fileList$ = this.fileService.list({ term });
+        })
+    );
+  }
+
+  private setLogoutTimer(): void {
+    this.timer = setTimeout(() => {
+      this.authenticationService.logout().subscribe();
+    }, this.TIMEOUT);
+
     this.subscribeTimerStatus();
   }
 
@@ -47,12 +84,6 @@ export class PagesPage implements OnInit {
         }
       })
     );
-  }
-
-  private setLogoutTimer(): void {
-    this.timer = setTimeout(() => {
-      this.authenticationService.logout().subscribe();
-    }, this.TIMEOUT);
   }
 
   private resetLogoutTimer(): void {

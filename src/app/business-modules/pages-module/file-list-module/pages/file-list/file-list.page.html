@@ -1,5 +1,5 @@
 <!-- TOOLBAR -->
-<div class="d-flex justify-content-between">
+<!-- <div class="d-flex justify-content-between">
   <button mat-flat-button color="primary" (click)="onClickUploadFile()">
     Upload file
   </button>
@@ -13,12 +13,21 @@
       formControlName="term"
     />
   </form>
-</div>
+</div> -->
+
+<mat-progress-bar
+  *ngIf="filesUploading"
+  class="mt-5"
+  mode="indeterminate"
+></mat-progress-bar>
 
 <!-- LIST -->
 <div class="mt-5">
   <span *ngIf="fileList$ | async; let list;">
-    <div *ngIf="!list.list" class="h-100 w-100 d-flex align-items-center justify-content-center">
+    <div
+      *ngIf="!list.list"
+      class="h-100 w-100 d-flex align-items-center justify-content-center"
+    >
       <mat-spinner></mat-spinner>
     </div>
     <mat-grid-list *ngIf="list.list" cols="2" rowHeight="2:1">
