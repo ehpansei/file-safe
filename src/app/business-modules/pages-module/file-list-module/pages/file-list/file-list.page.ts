@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import {
-  debounceTime,
   finalize,
   interval,
   Observable,
@@ -16,6 +15,7 @@ import { SnackbarService } from '@infrastructure-module/services/snackbar/snackb
 import { AuthenticationService } from '@infrastructure-module/services/authentication/authentication.service';
 import { AppConfig } from 'src/configs/app.config';
 import { File as FileModel } from '@file-list-module//models/file.model';
+import { SearchService } from '@infrastructure-module/services/search/search.service';
 
 @Component({
   templateUrl: './file-list.page.html',
@@ -32,12 +32,13 @@ export class FileListPage implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private fileService: FileService,
     private snackbarService: SnackbarService,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private searchService: SearchService
   ) {}
 
   ngOnInit(): void {
     this.setData();
-    // this.initSearch();
+    this.subscribeToSearchChanges();
   }
 
   ngOnDestroy(): void {
@@ -64,6 +65,14 @@ export class FileListPage implements OnInit, OnDestroy {
     });
     // open confirm delete modal
     // this.fileService.delete(index);
+  }
+
+  private subscribeToSearchChanges(): void {
+    this.subscriptions.add(
+      this.searchService.getTerm().subscribe((term: string) => {
+        this.fileList$ = this.fileService.list({ term });
+      })
+    );
   }
 
   private uploadFile(
@@ -109,25 +118,4 @@ export class FileListPage implements OnInit, OnDestroy {
   private setData(): void {
     this.fileList$ = this.fileService.list();
   }
-
- /*  private initSearch(): void {
-    this.initSearchForm();
-    this.initSearchFormChangeSubscription();
-  } */
-
-/*   private initSearchForm(): void {
-    this.searchFormGroup = this.fb.group({
-      term: this.fb.control(null)
-    });
-  }
-
-  private initSearchFormChangeSubscription(): void {
-    this.subscriptions.add(
-      this.searchFormGroup.controls.term.valueChanges
-        .pipe(debounceTime(AppConfig.config.searchDebounceTime))
-        .subscribe((term: string) => {
-          this.fileList$ = this.fileService.list({ term });
-        })
-    );
-  } */
 }

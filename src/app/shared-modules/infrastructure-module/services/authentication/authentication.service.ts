@@ -20,7 +20,7 @@ export class AuthenticationService {
       .pipe(
         switchMap((resp: LoginResponse) => {
           TokenHelper.setToken(resp.token.plainTextToken);
-          this.router.navigate(['']);
+          this.router.navigate(['files']);
           return of(true);
         }),
         catchError((err: any) => of(false))

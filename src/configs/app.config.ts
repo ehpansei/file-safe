@@ -4,4 +4,8 @@ export class AppConfig {
     uploadDelayTimeout: 10000,
     searchDebounceTime: 1000
   };
+
+  static readonly session = {
+    sessionTime: 300000 // 5 minutes
+  };
 }

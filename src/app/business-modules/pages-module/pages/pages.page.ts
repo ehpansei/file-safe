@@ -1,16 +1,17 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { TimerService } from '@infrastructure-module/services/timer/timer.service';
 import { AuthenticationService } from '@infrastructure-module/services/authentication/authentication.service';
 import { debounceTime, Subscription } from 'rxjs';
 import { TimerStatus } from '@infrastructure-module/enums/timer-status.enum';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AppConfig } from 'src/configs/app.config';
+import { SearchService } from '@infrastructure-module/services/search/search.service';
 
 @Component({
   templateUrl: './pages.page.html',
   styleUrls: ['./pages.page.scss']
 })
-export class PagesPage implements OnInit {
+export class PagesPage implements OnInit, OnDestroy {
   // set host listeners
   @HostListener('window:keydown', ['$event'])
   @HostListener('click', ['$event'])
@@ -21,20 +22,23 @@ export class PagesPage implements OnInit {
 
   public searchFormGroup: FormGroup;
 
-  // 5 minutes
-  private TIMEOUT = 300000;
   private timer: NodeJS.Timeout;
   private subscriptions = new Subscription();
 
   constructor(
     private authenticationService: AuthenticationService,
     private timerService: TimerService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private searchService: SearchService
   ) {}
 
   ngOnInit(): void {
     this.setLogoutTimer();
     this.initSearch();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   public onClickUploadFile(): void {}
@@ -55,8 +59,7 @@ export class PagesPage implements OnInit {
       this.searchFormGroup.controls.term.valueChanges
         .pipe(debounceTime(AppConfig.config.searchDebounceTime))
         .subscribe((term: string) => {
-          console.log(term);
-          // this.fileList$ = this.fileService.list({ term });
+          this.searchService.emit(term);
         })
     );
   }
@@ -64,7 +67,7 @@ export class PagesPage implements OnInit {
   private setLogoutTimer(): void {
     this.timer = setTimeout(() => {
       this.authenticationService.logout().subscribe();
-    }, this.TIMEOUT);
+    }, AppConfig.session.sessionTime);
 
     this.subscribeTimerStatus();
   }
