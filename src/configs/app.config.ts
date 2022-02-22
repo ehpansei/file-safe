@@ -10,7 +10,9 @@ export class AppConfig {
   };
 
   static readonly lists = {
-    filePageSize: 16
+    file: {
+      pageSize: 16
+    }
   };
 
   static readonly emails = {

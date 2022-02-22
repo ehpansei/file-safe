@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FileMock } from 'src/tests/model-mocks/file.mock';
 
 import { FileListItemComponent } from './file-list-item.component';
 
@@ -8,14 +9,14 @@ describe('FileListItemComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FileListItemComponent ]
-    })
-    .compileComponents();
+      declarations: [FileListItemComponent]
+    }).compileComponents();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(FileListItemComponent);
     component = fixture.componentInstance;
+    component.file = FileMock.file1;
     fixture.detectChanges();
   });
 
