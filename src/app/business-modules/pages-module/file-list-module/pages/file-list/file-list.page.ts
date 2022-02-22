@@ -82,14 +82,16 @@ export class FileListPage implements OnInit, OnDestroy {
     this.uploading$.next(true);
 
     // start an interval that renews token every X seconds while file is uploading
-    interval(AppConfig.config.renewTokenInterval)
-      .pipe(takeUntil(destroy$))
-      .subscribe(() => {
-        // make renew token request
-        this.authenticationService.renew().subscribe();
-        // restart timer
-        this.timerService.start();
-      });
+    this.subscriptions.add(
+      interval(AppConfig.config.renewTokenInterval)
+        .pipe(takeUntil(destroy$))
+        .subscribe(() => {
+          // make renew token request
+          this.authenticationService.renew().subscribe();
+          // restart timer
+          this.timerService.start();
+        })
+    );
 
     // upload request
     setTimeout(() => {

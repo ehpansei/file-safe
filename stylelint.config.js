@@ -91,7 +91,7 @@ module.exports = {
     'no-descending-specificity': true,
     'no-duplicate-at-import-rules': true,
     'no-duplicate-selectors': true,
-    'no-empty-source': true,
+    // 'no-empty-source': true,
     'no-eol-whitespace': true,
     'no-extra-semicolons': true,
     'no-invalid-double-slash-comments': true,
