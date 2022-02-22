@@ -4,7 +4,7 @@
   (ngSubmit)="onSubmit()">
   <mat-form-field
     appearance="fill">
-    <mat-label>Username</mat-label>
+    <mat-label>Email</mat-label>
     <input
       id="emailField"
       matInput
@@ -12,9 +12,14 @@
       type="text"
       formControlName="email" />
     <mat-error
-      id="emailError"
+      id="emailErrorRequired"
       *ngIf="emailControl.errors?.['required']">
-      Username is required
+      Email is required
+    </mat-error>
+    <mat-error
+      id="emailErrorPattern"
+      *ngIf="emailControl.errors?.['pattern']">
+      Email is invalid
     </mat-error>
   </mat-form-field>
   <mat-form-field
