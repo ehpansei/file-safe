@@ -8,4 +8,8 @@ export class AppConfig {
   static readonly session = {
     sessionTime: 300000 // 5 minutes
   };
+
+  static readonly lists = {
+    filePageSize: 16
+  };
 }

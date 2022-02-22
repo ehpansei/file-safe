@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, startWith } from 'rxjs';
+import { map, Observable, startWith, tap } from 'rxjs';
 import { File as FileModel } from '@file-list-module/models/file.model';
 import { environment } from 'src/environments/environment';
 import { FileList } from '../models/file-list.model';
+import { FileServiceFilter } from './models/file-service-filter.model';
+import { HttpHelper } from '@app/shared-modules/infrastructure-module/helpers/http.helper';
 
 @Injectable({
   providedIn: 'root'
@@ -54,13 +56,24 @@ export class FileService {
     return this.httpClient.post<boolean>(this.endpoint, formData);
   }
 
-  public list(params?: { term: string }): Observable<FileList> {
-    return this.httpClient.get<any>(this.endpoint, { params: params }).pipe(
-      startWith({ isLoading: true }),
-      map((files) => {
-        return { list: files.list, isLoading: false };
-      })
-    );
+  public list(params: FileServiceFilter): Observable<FileList> {
+    let queryParams: string | undefined;
+
+    Object.entries(params).forEach((entry: any) => {
+      queryParams += `&${entry[0]}=${entry[1]}`;
+    });
+
+    console.log(queryParams);
+
+    return this.httpClient
+      .get<FileList>(this.endpoint + `?${HttpHelper.buildQueryString(params)}`)
+      .pipe(
+        map((files: any) => {
+          return { isLoading: false, response: files };
+        }),
+        startWith({ isLoading: true }),
+        tap((val) => console.log(val))
+      );
   }
 
   public get(id: number): Observable<FileModel> {

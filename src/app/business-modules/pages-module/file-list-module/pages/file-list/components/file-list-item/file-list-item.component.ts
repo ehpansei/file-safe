@@ -18,7 +18,7 @@ import { fromEvent, Subscription } from 'rxjs';
   host: { class: 'c-fileListItem' }
 })
 export class FileListItemComponent implements OnInit, OnDestroy {
-  @Input() file!: FileModel;
+  @Input() file: FileModel;
   @Output() delete = new EventEmitter();
 
   @ViewChild('delete') deleteButton!: ElementRef;

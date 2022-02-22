@@ -10,23 +10,23 @@ import {
   takeUntil
 } from 'rxjs';
 import { FileService } from '@file-list-module/services/file.service';
-import { FileList } from '@file-list-module/models/file-list.model';
 import { SnackbarService } from '@infrastructure-module/services/snackbar/snackbar.service';
 import { File as FileModel } from '@file-list-module//models/file.model';
 import { AuthenticationService } from '@infrastructure-module/services/authentication/authentication.service';
 import { AppConfig } from 'src/configs/app.config';
 import { TimerService } from '@infrastructure-module/services/timer/timer.service';
+import { FileServiceFilter } from '@file-list-module/services/models/file-service-filter.model';
 
 @Component({
   templateUrl: './file-list.page.html',
   styleUrls: ['./file-list.page.scss']
 })
 export class FileListPage implements OnInit, OnDestroy {
-  public fileList$: Observable<FileList>;
+  public fileList$: Observable<{ response?: any; isLoading: boolean }>;
   public uploading$ = new BehaviorSubject<boolean>(false);
 
   private subscriptions = new Subscription();
-  private searchTerms: { term: string } = { term: '' };
+  private filter: FileServiceFilter = new FileServiceFilter();
 
   constructor(
     public dialog: MatDialog,
@@ -54,7 +54,8 @@ export class FileListPage implements OnInit, OnDestroy {
   }
 
   public onSearchTerm(term: string): void {
-    this.searchTerms.term = term;
+    this.filter.page = 1;
+    this.filter.searchTerm = term;
     this.setData();
   }
 
@@ -64,6 +65,16 @@ export class FileListPage implements OnInit, OnDestroy {
 
   public onUpload(file: File): void {
     this.uploadFile(file);
+  }
+
+  public onClickNext(): void {
+    this.filter.page++;
+    this.setData();
+  }
+
+  public onClickPrevious(): void {
+    this.filter.page--;
+    this.setData();
   }
 
   private uploadFile(file: File): void {
@@ -105,6 +116,6 @@ export class FileListPage implements OnInit, OnDestroy {
   }
 
   private setData(): void {
-    this.fileList$ = this.fileService.list(this.searchTerms);
+    this.fileList$ = this.fileService.list(this.filter);
   }
 }

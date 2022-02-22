@@ -14,7 +14,12 @@
   </mat-drawer>
 
   <mat-drawer-content class="p-4">
-    <button type="button" mat-button (click)="drawer.toggle()">
+    <button
+      type="button"
+      class="position-absolute"
+      mat-button
+      (click)="drawer.toggle()"
+    >
       <mat-icon>menu</mat-icon>
     </button>
 

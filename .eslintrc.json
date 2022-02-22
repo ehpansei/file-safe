@@ -13,7 +13,6 @@
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
       "rules": {
-        "init-declarations": ["error", "never", { "ignoreForLoopInit": true }],
         "quotes": ["error", "single", { "allowTemplateLiterals": true }],
         "@angular-eslint/component-selector": [
           "error",
