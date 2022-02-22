@@ -7,7 +7,7 @@
       class="h-100 w-100 d-flex flex-column align-items-center justify-content-center"
     >
       <mat-spinner></mat-spinner>
-      <p>Files are uploading.</p>
+      <p>File is uploading</p>
     </div>
     <span *ngIf="!isUploading">
       <input
@@ -27,7 +27,7 @@
         (drop)="onDrop($event)"
       >
         <mat-icon>attach_file</mat-icon>
-        <p>{{ fileName || 'No file selected yet.' }}</p>
+        <p>{{ selectedFile?.name || 'No file selected yet.' }}</p>
       </div>
     </span>
   </div>

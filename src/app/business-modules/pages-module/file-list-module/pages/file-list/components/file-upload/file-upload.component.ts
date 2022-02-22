@@ -22,21 +22,19 @@ export class FileUploadComponent {
     event.stopPropagation();
     event.preventDefault();
     this.isDragging = false;
-    return;
   }
 
   public onDragOver(event: any): void {
     event.stopPropagation();
     event.preventDefault();
     this.isDragging = true;
-    return;
   }
 
   public onDrop(event: any): void {
     event.stopPropagation();
     event.preventDefault();
     this.isDragging = false;
-    return;
+    this.selectedFile = event.dataTransfer.files[0];
   }
 
   public onFileSelected(event: any): void {
