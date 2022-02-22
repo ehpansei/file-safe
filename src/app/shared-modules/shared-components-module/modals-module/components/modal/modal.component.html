@@ -1,20 +1,16 @@
-<div>
-  <h2 mat-dialog-title>
-    <ng-content select=".modal-title"></ng-content>
-  </h2>
+<h2 mat-dialog-title>
+  <ng-content select=".modal-title"></ng-content>
+</h2>
 
-  <mat-dialog-content>
-    <ng-content select=".modal-content"></ng-content>
-  </mat-dialog-content>
+<div mat-dialog-content>
+  <div class="c-modal__contentContainer">
+    <ng-content  class="c-modal__contentContainer" select=".modal-content"></ng-content>
+  </div>
+</div>
 
-  <mat-dialog-actions align="end">
-    <ng-content select=".modal-action"></ng-content>
-    <button
-      class="ml-2"
-      mat-button
-      mat-flat-button
-      mat-dialog-close>
-      Cancel
-    </button>
-  </mat-dialog-actions>
+<div mat-dialog-actions align="end">
+  <ng-content select=".modal-action"></ng-content>
+  <button class="ml-2" mat-button mat-flat-button mat-dialog-close>
+    Cancel
+  </button>
 </div>

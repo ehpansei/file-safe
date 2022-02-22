@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { FileUploadComponent } from '@app/business-modules/pages-module/file-list-module/pages/file-list/components/file-upload/file-upload.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { FileUploadComponent } from '@pages-module/file-list-module/pages/file-list/components/file-upload/file-upload.component';
 import { AuthenticationService } from '@infrastructure-module/services/authentication/authentication.service';
 import { debounceTime, Subscription } from 'rxjs';
 import { AppConfig } from 'src/configs/app.config';
@@ -14,7 +14,10 @@ import { AppConfig } from 'src/configs/app.config';
 })
 export class FileListToolbarComponent implements OnInit {
   @Output() searchTerm = new EventEmitter<string>();
-  @Output() upload = new EventEmitter<File>();
+  @Output() upload = new EventEmitter<{
+    file: File;
+    dialogRef: MatDialogRef<FileUploadComponent, any>;
+  }>();
 
   public searchFormGroup: FormGroup;
   private subscriptions = new Subscription();
@@ -36,8 +39,7 @@ export class FileListToolbarComponent implements OnInit {
 
     dialogRef.componentInstance.fileUploaded.subscribe((file: File) => {
       if (file) {
-        this.upload.emit(file);
-        dialogRef.close();
+        this.upload.emit({ file, dialogRef });
       }
     });
   }

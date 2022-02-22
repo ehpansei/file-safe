@@ -1,14 +1,15 @@
 <modal>
   <span class="modal-title">Confirm delete</span>
 
-  <div class="modal-content">Confirm delete</div>
+  <p class="modal-content c-confirmDeleteDialog__content">
+    Are you sure you want to delete {{ fileName }}?
+  </p>
 
   <div class="modal-action">
     <button
       mat-button
       mat-flat-button
       color="primary"
-      mat-dialog-close
       (click)="onConfirmDelete()"
     >
       Delete

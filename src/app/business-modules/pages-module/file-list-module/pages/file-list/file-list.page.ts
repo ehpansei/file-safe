@@ -16,6 +16,7 @@ import { AuthenticationService } from '@infrastructure-module/services/authentic
 import { AppConfig } from 'src/configs/app.config';
 import { TimerService } from '@infrastructure-module/services/timer/timer.service';
 import { FileServiceFilter } from '@file-list-module/services/models/file-service-filter.model';
+import { ConfirmDeleteDialogComponent } from '@app/shared-modules/shared-components-module/modals-module/components/confirm-delete-dialog/confirm-delete-dialog.component';
 
 @Component({
   templateUrl: './file-list.page.html',
@@ -45,10 +46,20 @@ export class FileListPage implements OnInit, OnDestroy {
   }
 
   public onDeleteFile(file: FileModel): void {
-    this.fileService.delete(file.id).subscribe((resp: FileModel) => {
-      this.snackbarService.success(`File has been deleted`);
-      this.setData();
+    const dialogRef = this.dialog.open(ConfirmDeleteDialogComponent, {
+      width: '300px'
     });
+
+    dialogRef.componentInstance.fileName = file.name;
+
+    dialogRef.componentInstance.confirmDelete.subscribe(() => {
+      this.fileService.delete(file.id).subscribe((resp: FileModel) => {
+        this.snackbarService.success(`File has been deleted`);
+        dialogRef.close();
+        this.setData();
+      });
+    });
+
     // open confirm delete modal
     // this.fileService.delete(index);
   }
@@ -63,8 +74,8 @@ export class FileListPage implements OnInit, OnDestroy {
     this.setData();
   }
 
-  public onUpload(file: File): void {
-    this.uploadFile(file);
+  public onUpload(event: { file: File; dialogRef: any }): void {
+    this.uploadFile(event);
   }
 
   public onClickNext(): void {
@@ -77,7 +88,7 @@ export class FileListPage implements OnInit, OnDestroy {
     this.setData();
   }
 
-  private uploadFile(file: File): void {
+  private uploadFile(event: { file: File; dialogRef: any }): void {
     const destroy$ = new Subject();
     this.uploading$.next(true);
 
@@ -96,11 +107,12 @@ export class FileListPage implements OnInit, OnDestroy {
     // upload request
     setTimeout(() => {
       this.fileService
-        .create(file)
+        .create(event.file)
         .pipe(
           finalize(() => {
             destroy$.next(true);
             this.uploading$.next(false);
+            event.dialogRef.close();
           })
         )
         .subscribe({

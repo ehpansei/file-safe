@@ -37,7 +37,7 @@ export class FileListItemComponent implements OnInit, OnDestroy {
 
   public onClickDelete(event: any): void {
     event.stopPropagation();
-    this.delete.emit();
+    this.delete.emit(this.file.id);
   }
 
   private subscribeMouseEvents(): void {
