@@ -29,6 +29,10 @@ export class ErrorInterceptor implements HttpInterceptor {
           this.snackbarService.failure('You are no longer authenticated');
         }
 
+        if (err.status === 404) {
+          this.router.navigate(['not-found']);
+        }
+
         return throwError(() => err);
       })
     );

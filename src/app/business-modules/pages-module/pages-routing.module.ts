@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { NotFoundPage } from './pages/not-found/not-found.page';
 import { PagesPage } from './pages/pages.page';
 
 const routes: Routes = [
@@ -20,7 +21,13 @@ const routes: Routes = [
           import('./some-other-module/some-other-module.module').then(
             (mod) => mod.SomeOtherModuleModule
           )
-      }
+      },
+      {
+        path: 'not-found',
+        component: NotFoundPage
+      },
+      { path: '', pathMatch: 'full', redirectTo: 'files' },
+      { path: '**', component: NotFoundPage }
     ]
   }
 ];

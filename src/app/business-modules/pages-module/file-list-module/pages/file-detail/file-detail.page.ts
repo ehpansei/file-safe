@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { finalize, Observable } from 'rxjs';
 import { File as FileModel } from '@file-list-module/models/file.model';
 import { FileService } from '@file-list-module/services/file.service';
 import { environment } from 'src/environments/environment';
@@ -13,6 +13,8 @@ import { environment } from 'src/environments/environment';
 export class FileDetailPage implements OnInit {
   public file$: Observable<FileModel>;
   public downloadUrl: string;
+  public isDownloading = false;
+
   private fileId: number;
 
   constructor(
@@ -28,23 +30,11 @@ export class FileDetailPage implements OnInit {
   }
 
   public onClickDownload(file: FileModel) {
-    this.fileService.download(this.fileId).subscribe((blob: Blob) => {
-      const url = window.URL.createObjectURL(blob);
-      const blobAnchor = window.document.createElement('a');
-
-      blobAnchor.onload = () => {
-        window.URL.revokeObjectURL(blobAnchor.href);
-      };
-
-      blobAnchor.href = url;
-      blobAnchor.download = String(file.name);
-      // add download anchor to page
-      window.document.body.appendChild(blobAnchor);
-      // trigger anchor
-      blobAnchor.click();
-      // remove anchor from page
-      window.document.body.removeChild(blobAnchor);
-    });
+    this.isDownloading = true;
+    this.fileService
+      .download(file)
+      .pipe(finalize(() => (this.isDownloading = false)))
+      .subscribe();
   }
 
   private getData(): void {

@@ -2,7 +2,14 @@
   <mat-spinner *ngIf="file.loading" class="justify-content-md-center">
   </mat-spinner>
   <div *ngIf="!file.loading" class="d-flex flex-column">
-    <button mat-flat-button (click)="onClickDownload(file)">Download file</button>
+    <button
+      mat-flat-button
+      color="primary"
+      [disabled]="isDownloading"
+      (click)="onClickDownload(file)"
+    >
+      Download file
+    </button>
 
     <h2 class="d-flex justify-content-center">{{file.name}}</h2>
     <p>Uploaded at: {{file.created_at | date}}</p>
