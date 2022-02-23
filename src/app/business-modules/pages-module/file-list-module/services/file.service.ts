@@ -44,15 +44,9 @@ export class FileService {
       queryParams += `&${entry[0]}=${entry[1]}`;
     });
 
-    return this.httpClient
-      .get<FileList>(this.endpoint + `?${HttpHelper.buildQueryString(params)}`)
-      .pipe(
-        map((files: any) => {
-          return { ...files, isLoading: false, response: files };
-        }),
-        startWith({ isLoading: true }),
-        tap((val) => console.log(val))
-      );
+    return this.httpClient.get<FileList>(
+      this.endpoint + `?${HttpHelper.buildQueryString(params)}`
+    );
   }
 
   public get(id: number): Observable<FileModel> {

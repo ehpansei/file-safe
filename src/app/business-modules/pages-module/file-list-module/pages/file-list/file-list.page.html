@@ -12,21 +12,23 @@
 
 <!-- LIST -->
 <div class="mt-5">
-  <span *ngIf="fileList$ | async; let list;">
+  <span *ngIf="fileList$ | withLoading | async; let list;">
     <div
-      *ngIf="list.isLoading"
+      *ngIf="list.loading"
       class="h-100 w-100 d-flex align-items-center justify-content-center"
     >
       <mat-spinner></mat-spinner>
     </div>
-    <span *ngIf="!list.isLoading">
+    <span *ngIf="!list.loading">
       <mat-grid-list
-        *ngIf="list.response.list.data.length"
+        *ngIf="list.list.data.length"
         cols="4"
         rowHeight="150px"
         gutterSize="20px"
       >
-        <span *ngFor="let file of list.response.list.data; let index=index">
+        <span
+          *ngFor="let file of list.list.data; let index=index; trackBy: trackByFn"
+        >
           <mat-grid-tile>
             <file-list-item
               [file]="file"
@@ -41,7 +43,7 @@
           mat-flat-button
           class="mr-2"
           color="primary"
-          [disabled]="!list.response.list.prev_page_url"
+          [disabled]="!list.list.prev_page_url"
           (click)="onClickPrevious()"
         >
           Previous
@@ -49,13 +51,13 @@
         <button
           mat-flat-button
           color="primary"
-          [disabled]="!list.response.list.next_page_url"
+          [disabled]="!list.list.next_page_url"
           (click)="onClickNext()"
         >
           Next
         </button>
       </div>
-      <p *ngIf="!list.response.list.data.length">No files!</p>
+      <p *ngIf="!list.list.data.length">No files!</p>
     </span>
   </span>
 </div>

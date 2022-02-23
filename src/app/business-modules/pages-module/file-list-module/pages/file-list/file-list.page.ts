@@ -16,14 +16,15 @@ import { AuthenticationService } from '@infrastructure-module/services/authentic
 import { AppConfig } from 'src/configs/app.config';
 import { TimerService } from '@infrastructure-module/services/timer/timer.service';
 import { FileServiceFilter } from '@file-list-module/services/models/file-service-filter.model';
-import { ConfirmDeleteDialogComponent } from '@shared-components-module/modals-module/components/confirm-delete-dialog/confirm-delete-dialog.component';
+import { ConfirmDeleteDialogComponent } from '@modals-module/components/confirm-delete-dialog/confirm-delete-dialog.component';
+import { FileList as FileListModel } from '@file-list-module/models/file-list.model';
 
 @Component({
   templateUrl: './file-list.page.html',
   styleUrls: ['./file-list.page.scss']
 })
 export class FileListPage implements OnInit, OnDestroy {
-  public fileList$: Observable<{ response?: any; isLoading: boolean }>;
+  public fileList$: Observable<FileListModel>;
   public uploading$ = new BehaviorSubject<boolean>(false);
 
   private subscriptions = new Subscription();
@@ -45,6 +46,11 @@ export class FileListPage implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
+  /**
+   * Opens confirm delete modal and subscribes to confirm action callback
+   *
+   * @param file
+   */
   public onDeleteFile(file: FileModel): void {
     const dialogRef = this.dialog.open(ConfirmDeleteDialogComponent, {
       width: '300px'
@@ -59,11 +65,14 @@ export class FileListPage implements OnInit, OnDestroy {
         this.setData();
       });
     });
-
-    // open confirm delete modal
-    // this.fileService.delete(index);
   }
 
+  /**
+   * Updates the current filter with the term written on the search field
+   * and requests new data
+   *
+   * @param term
+   */
   public onSearchTerm(term: string): void {
     this.filter.page = 1;
     this.filter.searchTerm = term;
@@ -86,6 +95,10 @@ export class FileListPage implements OnInit, OnDestroy {
   public onClickPrevious(): void {
     this.filter.page--;
     this.setData();
+  }
+
+  public trackByFn(index: any, item: FileModel): number {
+    return item.id;
   }
 
   private uploadFile(event: { file: File; dialogRef: any }): void {

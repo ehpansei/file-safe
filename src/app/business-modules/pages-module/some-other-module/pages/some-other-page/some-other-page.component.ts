@@ -1,15 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-some-other-page',
   templateUrl: './some-other-page.component.html',
-  styleUrls: ['./some-other-page.component.scss']
-})
-export class SomeOtherPageComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
+  styleUrls: ['./some-other-page.component.scss'],
+  host: {
+    class: 'h-100 w-100 d-flex justify-content-center align-items-center'
   }
-
-}
+})
+export class SomeOtherPageComponent {}

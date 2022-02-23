@@ -1,4 +1,3 @@
-<a [routerLink]="'./files'" routerLinkActive="active-link">Files</a>
-<a [routerLink]="'./some-other-module'" routerLinkActive="active-link"
-  >Some other module</a
->
+<span *ngFor="let url of urls">
+  <app-side-nav-link-item [config]="url"></app-side-nav-link-item>
+</span>

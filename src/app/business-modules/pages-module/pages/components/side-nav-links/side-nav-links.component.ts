@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SideNavLink } from '../../models/side-nav-link.model';
 
 @Component({
   selector: 'side-nav-links',
@@ -6,4 +7,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./side-nav-links.component.scss'],
   host: { class: 'c-sideNavLinks' }
 })
-export class SideNavLinksComponent {}
+export class SideNavLinksComponent {
+  public urls: SideNavLink[] = [
+    {
+      name: 'Files',
+      url: './files'
+    },
+    {
+      name: 'Some other module',
+      url: './some-other-module'
+    }
+  ];
+}

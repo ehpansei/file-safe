@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { catchError, map, startWith } from 'rxjs/operators';
-import { isObservable, Observable, of } from 'rxjs';
+import { isObservable, Observable, of, tap } from 'rxjs';
 
 @Pipe({
   name: 'withLoading'

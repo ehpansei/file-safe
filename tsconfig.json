@@ -17,6 +17,9 @@
       ],
       "@shared-components-module/*": [
         "src/app/shared-modules/shared-components-module/*"
+      ],
+      "@modals-module/*": [
+        "src/app/shared-modules/shared-components-module/modals-module/*"
       ]
     },
     "outDir": "./dist/out-tsc",
