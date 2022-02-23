@@ -16,7 +16,7 @@ import { AuthenticationService } from '@infrastructure-module/services/authentic
 import { AppConfig } from 'src/configs/app.config';
 import { TimerService } from '@infrastructure-module/services/timer/timer.service';
 import { FileServiceFilter } from '@file-list-module/services/models/file-service-filter.model';
-import { ConfirmDeleteDialogComponent } from '@app/shared-modules/shared-components-module/modals-module/components/confirm-delete-dialog/confirm-delete-dialog.component';
+import { ConfirmDeleteDialogComponent } from '@shared-components-module/modals-module/components/confirm-delete-dialog/confirm-delete-dialog.component';
 
 @Component({
   templateUrl: './file-list.page.html',

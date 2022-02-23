@@ -29,8 +29,6 @@ export class PagesPage implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    // files is the homepage
-    this.router.navigate(['files']);
     this.setLogoutTimer();
   }
 

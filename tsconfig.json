@@ -14,6 +14,9 @@
       ],
       "@file-list-module/*": [
         "src/app/business-modules/pages-module/file-list-module/*"
+      ],
+      "@shared-components-module/*": [
+        "src/app/shared-modules/shared-components-module/*"
       ]
     },
     "outDir": "./dist/out-tsc",
