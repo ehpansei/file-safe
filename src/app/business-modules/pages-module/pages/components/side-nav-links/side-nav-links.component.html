@@ -1,3 +1,5 @@
-<span *ngFor="let url of urls">
-  <app-side-nav-link-item [config]="url"></app-side-nav-link-item>
-</span>
+<side-nav-link-item
+  *ngFor="let url of urls"
+  class="mb-1"
+  [config]="url"
+></side-nav-link-item>

@@ -11,11 +11,11 @@ export class SideNavLinksComponent {
   public urls: SideNavLink[] = [
     {
       name: 'Files',
-      url: './files'
+      url: '/files'
     },
     {
       name: 'Some other module',
-      url: './some-other-module'
+      url: '/some-other-module'
     }
   ];
 }

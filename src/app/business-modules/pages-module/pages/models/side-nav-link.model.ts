@@ -1,4 +1,4 @@
 export class SideNavLink {
-  public url: string;
-  public name: string;
+  public url!: string;
+  public name!: string;
 }

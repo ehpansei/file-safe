@@ -6,10 +6,10 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class FileUploadComponent {
   @Output() fileUploaded = new EventEmitter<File>();
-  public fileName: string;
-  public selectedFile: File;
-  public isDragging: boolean;
-  public isUploading: boolean;
+  public fileName!: string;
+  public selectedFile!: File;
+  public isDragging = false;
+  public isUploading = false;
 
   public onClickUpload(): void {
     if (this.selectedFile) {

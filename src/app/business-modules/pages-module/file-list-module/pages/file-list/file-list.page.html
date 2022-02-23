@@ -1,9 +1,3 @@
-<file-list-toolbar
-  (searchTerm)="onSearchTerm($event)"
-  (refreshList)="onRefreshList()"
-  (upload)="onUpload($event)"
-></file-list-toolbar>
-
 <mat-progress-bar
   *ngIf="uploading$ | async"
   class="mt-5"
@@ -11,7 +5,13 @@
 ></mat-progress-bar>
 
 <!-- LIST -->
-<div class="mt-5">
+<div class="p-fileListPage__listContainer">
+  <file-list-toolbar
+    (searchTerm)="onSearchTerm($event)"
+    (refreshList)="onRefreshList()"
+    (upload)="onUpload($event)"
+    class="mb-5"
+  ></file-list-toolbar>
   <span *ngIf="fileList$ | withLoading | async; let list;">
     <div
       *ngIf="list.loading"

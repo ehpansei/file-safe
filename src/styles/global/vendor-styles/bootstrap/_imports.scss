@@ -8,7 +8,9 @@
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
 
+
 // 4. Include any optional Bootstrap components as you like
+@import "~bootstrap/scss/mixins/breakpoints";
 @import "~bootstrap/scss/grid";
 @import "~bootstrap/scss/utilities/display";
 @import "~bootstrap/scss/utilities/flex";

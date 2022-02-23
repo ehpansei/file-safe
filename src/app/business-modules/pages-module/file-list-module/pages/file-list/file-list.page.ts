@@ -21,7 +21,8 @@ import { FileList as FileListModel } from '@file-list-module/models/file-list.mo
 
 @Component({
   templateUrl: './file-list.page.html',
-  styleUrls: ['./file-list.page.scss']
+  styleUrls: ['./file-list.page.scss'],
+  host: { class: 'h-100' }
 })
 export class FileListPage implements OnInit, OnDestroy {
   public fileList$: Observable<FileListModel>;

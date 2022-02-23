@@ -1,7 +1,10 @@
 import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 import { By } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginCredentials } from '@app/shared-modules/infrastructure-module/models/login-credentials.model';
 import { AuthenticationService } from '@infrastructure-module/services/authentication/authentication.service';
 import { of } from 'rxjs';
@@ -36,7 +39,12 @@ describe('LoginFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule],
+      imports: [
+        BrowserAnimationsModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+        MatInputModule
+      ],
       providers: [
         { provide: AuthenticationService, useValue: authenticationServiceStub }
       ],
@@ -69,7 +77,7 @@ describe('LoginFormComponent', () => {
     expect(submitButton).toBeTruthy();
   });
 
-  it('should render username error when username field is empty', () => {
+  it('should render email required error when email field is empty', () => {
     // set formControl values
     component.formGroup.controls.email.setValue(null);
     component.formGroup.controls.password.setValue('password');
@@ -77,9 +85,26 @@ describe('LoginFormComponent', () => {
     submit(form);
 
     fixture.detectChanges();
-    emailErrorRequired = fixture.debugElement.query(By.css('#emailErrorRequired'));
+    emailErrorRequired = fixture.debugElement.query(
+      By.css('#emailErrorRequired')
+    );
 
     expect(emailErrorRequired).toBeTruthy();
+  });
+
+  it('should render invalid email error when email field is invalid', () => {
+    // set formControl values
+    component.formGroup.controls.email.setValue('test');
+    component.formGroup.controls.password.setValue('password');
+
+    submit(form);
+
+    fixture.detectChanges();
+    emailErrorPattern = fixture.debugElement.query(
+      By.css('#emailErrorPattern')
+    );
+
+    expect(emailErrorPattern).toBeTruthy();
   });
 
   it('should render password error when password field is empty', () => {
