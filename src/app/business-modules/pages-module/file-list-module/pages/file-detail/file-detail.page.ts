@@ -12,7 +12,6 @@ import { environment } from 'src/environments/environment';
 })
 export class FileDetailPage implements OnInit {
   public file$: Observable<FileModel>;
-  public downloadUrl: string;
   public isDownloading = false;
 
   private fileId: number;
@@ -24,8 +23,6 @@ export class FileDetailPage implements OnInit {
 
   ngOnInit(): void {
     this.fileId = this.activatedRoute.snapshot.params.id;
-    this.downloadUrl = environment.api.base + `files/${this.fileId}/download`;
-
     this.getData();
   }
 

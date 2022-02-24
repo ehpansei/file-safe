@@ -1,4 +1,10 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output
+} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FileUploadComponent } from '@pages-module/file-list-module/pages/file-list/components/file-upload/file-upload.component';
@@ -12,7 +18,7 @@ import { AppConfig } from 'src/configs/app.config';
   styleUrls: ['./file-list-toolbar.component.scss'],
   host: { class: 'c-fileListToolbar' }
 })
-export class FileListToolbarComponent implements OnInit {
+export class FileListToolbarComponent implements OnInit, OnDestroy {
   @Output() searchTerm = new EventEmitter<string>();
   @Output() upload = new EventEmitter<{
     file: File;
@@ -30,6 +36,10 @@ export class FileListToolbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.initSearch();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   public onClickUploadFile(): void {

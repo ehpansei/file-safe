@@ -59,8 +59,9 @@ export class FileService {
 
   public download(file: FileModel): Observable<FileModel> {
     return this.httpClient
-      .get<Blob>(this.endpoint + '/' + file.id + '/download', {
-        responseType: 'blob' as 'json'
+      .get(this.endpoint + '/' + file.id + '/download', {
+        responseType: 'blob',
+        observe: 'body'
       })
       .pipe(
         switchMap((blob: Blob) => {
