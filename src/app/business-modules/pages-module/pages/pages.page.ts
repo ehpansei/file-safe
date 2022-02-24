@@ -34,6 +34,7 @@ export class PagesPage implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+    this.stopLogoutTimer();
   }
 
   public onClickLogout(): void {
@@ -45,6 +46,8 @@ export class PagesPage implements OnInit, OnDestroy {
    * file upload
    */
   private setLogoutTimer(): void {
+    // stop any previous timer we might have
+    this.stopLogoutTimer();
     this.timer = setTimeout(() => {
       this.authenticationService.logout().subscribe();
     }, AppConfig.session.sessionTime);
@@ -70,9 +73,7 @@ export class PagesPage implements OnInit, OnDestroy {
   }
 
   private resetLogoutTimer(): void {
-    if (this.timer) {
-      clearTimeout(this.timer);
-    }
+    this.stopLogoutTimer();
     this.setLogoutTimer();
   }
 

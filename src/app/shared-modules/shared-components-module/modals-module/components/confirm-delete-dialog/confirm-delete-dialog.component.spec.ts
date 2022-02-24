@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ModalComponent } from '../modal/modal.component';
 
 import { ConfirmDeleteDialogComponent } from './confirm-delete-dialog.component';
 
@@ -8,9 +9,8 @@ describe('ConfirmDeleteDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ConfirmDeleteDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [ModalComponent, ConfirmDeleteDialogComponent]
+    }).compileComponents();
   });
 
   beforeEach(() => {

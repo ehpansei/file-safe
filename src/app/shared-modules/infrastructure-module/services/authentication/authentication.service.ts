@@ -31,7 +31,7 @@ export class AuthenticationService {
         }),
         catchError((err: any) => {
           this.snackbarService.failure('Something went wrong');
-          return of(false);
+          return throwError(() => new Error(err));
         })
       );
   }

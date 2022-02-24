@@ -120,6 +120,8 @@ export class FileListPage implements OnInit, OnDestroy {
 
     // upload request
     setTimeout(() => {
+      // stop timer so user isn't logged out during upload
+      this.timerService.stop();
       this.fileService
         .create(event.file)
         .pipe(
@@ -127,6 +129,8 @@ export class FileListPage implements OnInit, OnDestroy {
             destroy$.next(true);
             this.uploading$.next(false);
             event.dialogRef.close();
+            // restart timer
+            this.timerService.start();
           })
         )
         .subscribe({

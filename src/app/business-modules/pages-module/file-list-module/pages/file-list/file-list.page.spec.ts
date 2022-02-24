@@ -1,5 +1,10 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SnackbarService } from '@app/shared-modules/infrastructure-module/services/snackbar/snackbar.service';
 import { InfrastructureModule } from '@infrastructure-module/infrastructure.module';
@@ -8,6 +13,8 @@ import { FileMock } from 'src/tests/model-mocks/file.mock';
 import { FileList } from '../../models/file-list.model';
 import { FileService } from '../../services/file.service';
 import { FileServiceFilter } from '../../services/models/file-service-filter.model';
+import { FileListItemComponent } from './components/file-list-item/file-list-item.component';
+import { FileListToolbarComponent } from './components/file-list-toolbar/file-list-toolbar.component';
 
 import { FileListPage } from './file-list.page';
 
@@ -29,15 +36,24 @@ describe('FileListPage', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
+        BrowserAnimationsModule,
         InfrastructureModule,
         RouterTestingModule,
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatGridListModule,
+        MatIconModule
       ],
       providers: [
         { provide: FileService, useValue: fileServiceStub },
         { provide: SnackbarService, useValue: snackbarServiceStub }
       ],
-      declarations: [FileListPage]
+      declarations: [
+        FileListPage,
+        FileListToolbarComponent,
+        FileListItemComponent
+      ]
     }).compileComponents();
   });
 
