@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatLegacySnackBarModule as MatSnackBarModule } from '@angular/material/legacy-snack-bar';
 import { JwtInterceptor } from '@infrastructure-module/interceptors/jwt.interceptor';
@@ -17,7 +17,7 @@ import { ErrorInterceptor } from '@infrastructure-module/interceptors/error.inte
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    NgbModule,
+   //  NgbModule,
     MatSnackBarModule
   ],
   bootstrap: [AppComponent],
