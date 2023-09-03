@@ -5,7 +5,7 @@ import {
   OnInit,
   Output
 } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FileUploadComponent } from '@pages-module/file-list-module/pages/file-list/components/file-upload/file-upload.component';
 import { AuthenticationService } from '@infrastructure-module/services/authentication/authentication.service';
@@ -25,13 +25,13 @@ export class FileListToolbarComponent implements OnInit, OnDestroy {
     dialogRef: MatDialogRef<FileUploadComponent, any>;
   }>();
 
-  public searchFormGroup: FormGroup;
+  public searchFormGroup: UntypedFormGroup;
   private subscriptions = new Subscription();
 
   constructor(
     public dialog: MatDialog,
     private authenticationService: AuthenticationService,
-    private fb: FormBuilder
+    private fb: UntypedFormBuilder
   ) {}
 
   ngOnInit(): void {

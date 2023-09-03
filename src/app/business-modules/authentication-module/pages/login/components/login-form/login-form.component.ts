@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
   Validators
 } from '@angular/forms';
 import { AuthenticationService } from '@infrastructure-module/services/authentication/authentication.service';
@@ -15,19 +15,19 @@ import { AppConfig } from 'src/configs/app.config';
   styleUrls: ['./login-form.component.scss']
 })
 export class LoginFormComponent implements OnInit {
-  public formGroup!: FormGroup;
+  public formGroup!: UntypedFormGroup;
   public isLoading = true;
 
-  get emailControl(): FormControl {
-    return this.formGroup.get('email') as FormControl;
+  get emailControl(): UntypedFormControl {
+    return this.formGroup.get('email') as UntypedFormControl;
   }
 
-  get passwordControl(): FormControl {
-    return this.formGroup.get('password') as FormControl;
+  get passwordControl(): UntypedFormControl {
+    return this.formGroup.get('password') as UntypedFormControl;
   }
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private authenticationService: AuthenticationService
   ) {}
 
