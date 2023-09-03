@@ -6,7 +6,7 @@ import {
   Output
 } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 import { FileUploadComponent } from '@pages-module/file-list-module/pages/file-list/components/file-upload/file-upload.component';
 import { AuthenticationService } from '@infrastructure-module/services/authentication/authentication.service';
 import { debounceTime, Subscription } from 'rxjs';

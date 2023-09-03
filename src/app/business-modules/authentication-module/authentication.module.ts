@@ -5,8 +5,8 @@ import { AuthenticationRoutingModule } from './authentication-routing.module';
 import { LoginPage } from './pages/login/login.page';
 import { LoginFormComponent } from './pages/login/components/login-form/login-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
+import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
+import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
 
 @NgModule({
   declarations: [LoginPage, LoginFormComponent],

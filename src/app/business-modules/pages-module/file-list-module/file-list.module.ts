@@ -10,10 +10,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { FileListItemComponent } from './pages/file-list/components/file-list-item/file-list-item.component';
 import { FileDetailPage } from './pages/file-detail/file-detail.page';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
+import { MatLegacyProgressBarModule as MatProgressBarModule } from '@angular/material/legacy-progress-bar';
 import { FileListToolbarComponent } from './pages/file-list/components/file-list-toolbar/file-list-toolbar.component';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ModalsModule } from '@app/shared-modules/shared-components-module/modals-module/modals.module';
 
