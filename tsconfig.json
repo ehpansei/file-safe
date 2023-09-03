@@ -4,11 +4,15 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@app/*": ["src/app/*"],
+      "@app/*": [
+        "src/app/*"
+      ],
       "@authentication-module/*": [
         "src/app/business-modules/authentication-module/*"
       ],
-      "@pages-module/*": ["src/app/business-modules/pages-module/*"],
+      "@pages-module/*": [
+        "src/app/business-modules/pages-module/*"
+      ],
       "@infrastructure-module/*": [
         "src/app/shared-modules/infrastructure-module/*"
       ],
@@ -25,8 +29,6 @@
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    // "noImplicitOverride": true,
-    // "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
@@ -35,11 +37,18 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es2020",
+    "target": "ES2022",
     "module": "es2020",
-    "types": ["node", "jasmine"],
-    "lib": ["es2018", "dom"],
-    "allowSyntheticDefaultImports": true
+    "types": [
+      "node",
+      "jasmine"
+    ],
+    "lib": [
+      "es2018",
+      "dom"
+    ],
+    "allowSyntheticDefaultImports": true,
+    "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
